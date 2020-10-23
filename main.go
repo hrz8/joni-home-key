@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 type (
 	// PositionInterface is represent methods of Position struct
@@ -18,6 +21,7 @@ type (
 
 	// Step is represent the direction step
 	Step struct {
+		Position
 		North int
 		East  int
 		South int
@@ -48,31 +52,40 @@ func (p *Position) goingSouth() bool {
 	return *x < maxSouth
 }
 
-func (p Position) findKey(f *[][]byte) {
+func (p Position) findKey(f *[][]byte) []Step {
+	result := make([]Step, 0)
+
 	posNorth := p
 	for posNorth.goingNorth() {
 		if (*f)[posNorth.Row][posNorth.Col] == 0 {
 			break
 		}
-		fmt.Println(&posNorth)
 
 		posEast := posNorth
 		for posEast.goingEast() {
 			if (*f)[posEast.Row][posEast.Col] == 0 {
 				break
 			}
-			fmt.Println(&posEast)
 
 			posSouth := posEast
 			for posSouth.goingSouth() {
 				if (*f)[posSouth.Row][posSouth.Col] == 0 {
 					break
 				}
-				fmt.Println(&posSouth)
-				fmt.Println("gaca!")
+				result = append(result, Step{
+					Position: Position{
+						Row: posSouth.Row,
+						Col: posSouth.Col,
+					},
+					North: int(math.Abs(float64(p.Row) - float64(posNorth.Row))),
+					East:  int(math.Abs(float64(posNorth.Col) - float64(posEast.Col))),
+					South: int(math.Abs(float64(posEast.Row) - float64(posSouth.Row))),
+				})
 			}
 		}
 	}
+
+	return result
 }
 
 func main() {
@@ -90,7 +103,7 @@ func main() {
 		Col: 1,
 	}
 
-	joniPos.findKey(&floor)
+	keyPos := joniPos.findKey(&floor)
 
-	fmt.Println(joniPos)
+	fmt.Println(keyPos)
 }
