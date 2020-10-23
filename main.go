@@ -53,6 +53,14 @@ func goingEast(p *Position) bool {
 	return *y < maxEast
 }
 
+func goingSouth(p *Position) bool {
+	x := &p.Row
+	incrementSouth := 1
+	maxSouth := 5
+	*x += incrementSouth
+	return *x < maxSouth
+}
+
 func findKey(p Position, f *[][]byte) {
 	posNorth := p
 	for goingNorth(&posNorth) {
@@ -67,6 +75,15 @@ func findKey(p Position, f *[][]byte) {
 				break
 			}
 			fmt.Println(&posEast)
+
+			posSouth := posEast
+			for goingSouth(&posSouth) {
+				if (*f)[posSouth.Row][posSouth.Col] == 0 {
+					break
+				}
+				fmt.Println(&posSouth)
+				fmt.Println("gaca!")
+			}
 		}
 	}
 }
