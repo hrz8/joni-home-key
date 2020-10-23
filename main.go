@@ -103,7 +103,10 @@ func main() {
 		Col: 1,
 	}
 
-	keyPos := joniPos.findKey(&floor)
+	posibleKeyPos := joniPos.findKey(&floor)
 
-	fmt.Println(keyPos)
+	fmt.Println("These are posible key position coordinates (x, y) with moves (north, east, south):")
+	for i, keyPos := range posibleKeyPos {
+		fmt.Printf("%d. at (%d, %d) with move (%d, %d, %d)\n", i+1, keyPos.Position.Row, keyPos.Position.Col, keyPos.North, keyPos.East, keyPos.South)
+	}
 }
