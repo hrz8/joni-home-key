@@ -27,11 +27,37 @@ func main() {
 		{0, 0, 0, 0, 0, 0, 0, 0},
 	}
 
-	// starting position of Joni
 	joniPos := Position{
 		Row: 4,
 		Col: 1,
 	}
 
-	fmt.Println(floor[joniPos.Row][joniPos.Col])
+	findKey(joniPos, &floor)
+
+	fmt.Println(joniPos)
+}
+
+func goingNorth(p *Position) bool {
+	x := &p.Row
+	incrementNorth := -1
+	maxNorth := 0
+	*x += incrementNorth
+	return *x > maxNorth
+}
+
+func goingEast(p *Position) bool {
+	y := &p.Col
+	incrementEast := 1
+	maxEast := 7
+	*y += incrementEast
+	return *y > maxEast
+}
+
+func findKey(p Position, f *[][]byte) {
+	for goingNorth(&p) {
+		if (*f)[p.Row][p.Col] == 0 {
+			break
+		}
+		fmt.Println(&p)
+	}
 }
