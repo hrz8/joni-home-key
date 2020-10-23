@@ -18,7 +18,12 @@ func main() {
 	})
 
 	fmt.Println("These are posible key position coordinates (x, y) with moves (north -> east -> south):")
-	for i, keyPos := range posibleKeyPositions {
-		fmt.Printf("%d. at (%d, %d) with move (%d -> %d -> %d)\n", i+1, keyPos.Position.Row, keyPos.Position.Col, keyPos.North, keyPos.East, keyPos.South)
+	if len(posibleKeyPositions) > 0 {
+		for i, keyPos := range posibleKeyPositions {
+			fmt.Printf("%d. at (%d, %d) with move (%d -> %d -> %d)\n", i+1, keyPos.Position.Row, keyPos.Position.Col, keyPos.North, keyPos.East, keyPos.South)
+		}
+	} else {
+		fmt.Println("0. no posible position!")
 	}
+
 }
