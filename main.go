@@ -50,14 +50,23 @@ func goingEast(p *Position) bool {
 	incrementEast := 1
 	maxEast := 7
 	*y += incrementEast
-	return *y > maxEast
+	return *y < maxEast
 }
 
 func findKey(p Position, f *[][]byte) {
-	for goingNorth(&p) {
-		if (*f)[p.Row][p.Col] == 0 {
+	posNorth := p
+	for goingNorth(&posNorth) {
+		if (*f)[posNorth.Row][posNorth.Col] == 0 {
 			break
 		}
-		fmt.Println(&p)
+		fmt.Println(&posNorth)
+
+		posEast := posNorth
+		for goingEast(&posEast) {
+			if (*f)[posEast.Row][posEast.Col] == 0 {
+				break
+			}
+			fmt.Println(&posEast)
+		}
 	}
 }
