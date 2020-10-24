@@ -12,8 +12,8 @@ type (
 		GoingEast(f *[][]byte) bool
 		GoingSouth(f *[][]byte) bool
 		GoingWest(f *[][]byte) bool
-		Walking(r *[]Step, f *[][]byte, d []string, i int, n *int, e *int, s *int, w *int) error
-		FindPosibilities(f *[][]byte, d []string) ([]Step, error)
+		Walking(r *[]Step, f *[][]byte, d *[]string, i int, n *int, e *int, s *int, w *int) error
+		FindPosibilities(f *[][]byte, d *[]string) ([]Step, error)
 		FindPosibilitiesV1(f *[][]byte) ([]Step, error)
 	}
 
@@ -70,12 +70,12 @@ func (p *Position) GoingWest(f *[][]byte) bool {
 }
 
 // Walking is method to let Position find the key from move in the given floor
-func (p Position) Walking(r *[]Step, f *[][]byte, d []string, i int, n *int, e *int, s *int, w *int) error {
+func (p Position) Walking(r *[]Step, f *[][]byte, d *[]string, i int, n *int, e *int, s *int, w *int) error {
 	var err error
 	cp := p
 
 	for {
-		dc := d[i]
+		dc := (*d)[i]
 		var going bool
 
 		switch dc {
@@ -102,7 +102,7 @@ func (p Position) Walking(r *[]Step, f *[][]byte, d []string, i int, n *int, e *
 			break
 		}
 
-		if dc == d[len(d)-1] {
+		if dc == (*d)[len(*d)-1] {
 			*r = append(*r, Step{
 				Position: Position{
 					Row: cp.Row,
@@ -128,7 +128,7 @@ func (p Position) Walking(r *[]Step, f *[][]byte, d []string, i int, n *int, e *
 }
 
 // FindPosibilities is method to let Position find the key from anywhere in the given floor
-func (p Position) FindPosibilities(f *[][]byte, d []string) ([]Step, error) {
+func (p Position) FindPosibilities(f *[][]byte, d *[]string) ([]Step, error) {
 	colSize := len((*f)[0])
 	for _, col := range *f {
 		if len(col) != colSize {
