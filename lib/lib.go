@@ -5,9 +5,9 @@ import "math"
 type (
 	// PositionInterface is represent methods of Position struct
 	PositionInterface interface {
-		GoingNorth() bool
-		GoingEast() bool
-		GoingSouth() bool
+		GoingNorth(f *[][]byte) bool
+		GoingEast(f *[][]byte) bool
+		GoingSouth(f *[][]byte) bool
 		FindKey(f *[][]byte) []Step
 	}
 
@@ -27,7 +27,7 @@ type (
 )
 
 // GoingNorth is method to let Position walking through north untill reach the edge
-func (p *Position) GoingNorth() bool {
+func (p *Position) GoingNorth(f *[][]byte) bool {
 	x := &p.Row
 	incrementNorth := -1
 	maxNorth := 0
@@ -36,19 +36,19 @@ func (p *Position) GoingNorth() bool {
 }
 
 // GoingEast is method to let Position walking through east untill reach the edge
-func (p *Position) GoingEast() bool {
+func (p *Position) GoingEast(f *[][]byte) bool {
 	y := &p.Col
 	incrementEast := 1
-	maxEast := 7
+	maxEast := len((*f)[0]) - 1
 	*y += incrementEast
 	return *y < maxEast
 }
 
 // GoingSouth is method to let Position walking through south untill reach the edge
-func (p *Position) GoingSouth() bool {
+func (p *Position) GoingSouth(f *[][]byte) bool {
 	x := &p.Row
 	incrementSouth := 1
-	maxSouth := 5
+	maxSouth := len(*f) - 1
 	*x += incrementSouth
 	return *x < maxSouth
 }
@@ -58,19 +58,19 @@ func (p Position) FindKey(f *[][]byte) []Step {
 	result := make([]Step, 0)
 
 	pn := p
-	for pn.GoingNorth() {
+	for pn.GoingNorth(f) {
 		if (*f)[pn.Row][pn.Col] == 0 {
 			break
 		}
 
 		pe := pn
-		for pe.GoingEast() {
+		for pe.GoingEast(f) {
 			if (*f)[pe.Row][pe.Col] == 0 {
 				break
 			}
 
 			ps := pe
-			for ps.GoingSouth() {
+			for ps.GoingSouth(f) {
 				if (*f)[ps.Row][ps.Col] == 0 {
 					break
 				}
