@@ -71,7 +71,6 @@ func (p *Position) GoingWest(f *[][]byte) bool {
 
 // Walking is method to let Position find the key from move in the given floor
 func (p Position) Walking(r *[]Step, f *[][]byte, d *[]string, i int, n *int, e *int, s *int, w *int) error {
-	var err error
 	cp := p
 
 	for {
@@ -92,8 +91,7 @@ func (p Position) Walking(r *[]Step, f *[][]byte, d *[]string, i int, n *int, e 
 			going = cp.GoingWest(f)
 			*w = int(math.Abs(float64(p.Col) - float64(cp.Col)))
 		default:
-			err = errors.New("unknown direction clue")
-			if err != nil {
+			if err := errors.New("unknown direction clue"); err != nil {
 				return err
 			}
 		}
@@ -117,8 +115,7 @@ func (p Position) Walking(r *[]Step, f *[][]byte, d *[]string, i int, n *int, e 
 			np := cp
 			ni := i + 1
 
-			err = np.Walking(r, f, d, ni, n, e, s, w)
-			if err != nil {
+			if err := np.Walking(r, f, d, ni, n, e, s, w); err != nil {
 				return err
 			}
 		}
