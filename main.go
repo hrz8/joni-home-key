@@ -8,7 +8,7 @@ import (
 
 func main() {
 	joniPosition := lib.NewPositionInterface(4, 1)
-	posibleKeyPositions := joniPosition.FindKey(&[][]byte{
+	posibleKeyPositions, err := joniPosition.FindKey(&[][]byte{
 		{0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 1, 1, 1, 1, 1, 1, 0},
 		{0, 1, 0, 0, 0, 1, 1, 0},
@@ -16,8 +16,11 @@ func main() {
 		{0, 1, 0, 1, 1, 1, 1, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0},
 	})
+	if err != nil {
+		panic(fmt.Sprintf("[ERROR] %s", err.Error()))
+	}
 
-	fmt.Println("These are posible key position coordinates (x, y) with moves (north -> east -> south):")
+	fmt.Println("These are posible key position coordinates (row, col) with moves (north -> east -> south):")
 	if len(posibleKeyPositions) > 0 {
 		for i, keyPos := range posibleKeyPositions {
 			fmt.Printf("%d. at (%d, %d) with move (%d -> %d -> %d)\n", i+1, keyPos.Position.Row, keyPos.Position.Col, keyPos.North, keyPos.East, keyPos.South)

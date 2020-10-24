@@ -1,6 +1,9 @@
 package lib
 
-import "math"
+import (
+	"errors"
+	"math"
+)
 
 type (
 	// PositionInterface is represent methods of Position struct
@@ -8,7 +11,7 @@ type (
 		GoingNorth(f *[][]byte) bool
 		GoingEast(f *[][]byte) bool
 		GoingSouth(f *[][]byte) bool
-		FindKey(f *[][]byte) []Step
+		FindKey(f *[][]byte) ([]Step, error)
 	}
 
 	// Position is represent coordinate
@@ -53,8 +56,17 @@ func (p *Position) GoingSouth(f *[][]byte) bool {
 	return *x < maxSouth
 }
 
-// FindKey is method to let Position find the key with North, East, South move in the given floor
-func (p Position) FindKey(f *[][]byte) []Step {
+// FindKey is method to let Position find the key from North -> East -> South move in the given floor
+func (p Position) FindKey(f *[][]byte) ([]Step, error) {
+	// TODO: make sure each element of each floor row has the same size
+	colSize := len((*f)[0])
+	for _, col := range *f {
+		if len(col) != colSize {
+			err := errors.New("floor size not sync")
+			return nil, err
+		}
+	}
+
 	result := make([]Step, 0)
 
 	pn := p
@@ -87,7 +99,7 @@ func (p Position) FindKey(f *[][]byte) []Step {
 		}
 	}
 
-	return result
+	return result, nil
 }
 
 // NewPositionInterface is creating new instance of Position struct
