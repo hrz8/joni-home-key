@@ -58,7 +58,6 @@ func (p *Position) GoingSouth(f *[][]byte) bool {
 
 // FindKey is method to let Position find the key from North -> East -> South move in the given floor
 func (p Position) FindKey(f *[][]byte) ([]Step, error) {
-	// TODO: make sure each element of each floor row has the same size
 	colSize := len((*f)[0])
 	for _, col := range *f {
 		if len(col) != colSize {
