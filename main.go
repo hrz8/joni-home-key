@@ -35,10 +35,10 @@ func main() {
 		panic(fmt.Sprintf("[ERROR] %s", err.Error()))
 	}
 
-	fmt.Printf("These are posible key position coordinates (row, col) with moves %s:\n", strings.Join(*clue, "->"))
+	fmt.Printf("these are posible key position coordinates (row, col) with moves %s:\n", strings.Join(*clue, "->"))
 	if len(posibleKeyPositions) > 0 {
 		for i, keyPos := range posibleKeyPositions {
-			fmt.Printf("%d. at (%d, %d) with move (%d -> %d -> %d)\n", i+1, keyPos.Position.Row, keyPos.Position.Col, keyPos.North, keyPos.East, keyPos.South)
+			fmt.Printf("%d. at (%d, %d) with move (%d->%d->%d)\n", i+1, keyPos.Position.Row, keyPos.Position.Col, keyPos.North, keyPos.East, keyPos.South)
 		}
 	} else {
 		fmt.Println("0. no posible position!")
