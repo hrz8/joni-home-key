@@ -1,4 +1,4 @@
-# Joni Home Key (Go 1.15)
+# Joni Finding Home Key (Go 1.15)
 
 ## Quick Start
 
