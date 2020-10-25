@@ -23,12 +23,14 @@ func main() {
 	}
 
 	clue := &[]string{
-		"north", // 1sr step
+		"north", // 1st step
 		"east",  // 2nd step
 		"south", // 3rd step
 	}
 
+	// initiate new position with (row, col) parameter
 	joniPosition := lib.NewPositionInterface(4, 1)
+
 	posibleKeyPositions, err := joniPosition.FindPosibilities(floor, clue)
 	// posibleKeyPositions, err := joniPosition.FindPosibilitiesV1(floor)
 	if err != nil {
