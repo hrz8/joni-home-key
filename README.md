@@ -39,7 +39,10 @@ This is what implemented in `main.go`
 ``` bash
 $ go run main.go
 ```
-*note: you can modify the input on `main.go` file either the `floor`, `person pos` and the `clue` as well.
+
+*NOTE:
+- you can modify the input on `main.go` file either the `floor`, `person pos` and the `clue` as well.
+- the program has 2 method for the solution and implemented 1 of them. the first method is `conventional nested loop` and the other one is `recursive method` which implemented by default. both method working properly. the different is the **recursive one is more flexible for the direction input.**
 
 
 
