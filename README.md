@@ -4,6 +4,10 @@
 
 ### Story
 
+Given the square area floor with available and unavailable route. Given the position of the person in the area. There is a missing object in the area and the person is look forward the object with given clue direction.
+
+### Condition
+
 ```json
 This is what implemented in `main.go`
 
@@ -25,7 +29,7 @@ o is person position
 ```json
 This is what implemented in `main.go`
 
-1. Going north
+1. Going North
 2. Going East
 3. Going South
 ```
